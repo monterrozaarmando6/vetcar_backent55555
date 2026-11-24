@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: backend-veterinaria-java
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false   # Render te pedira el valor: la URL de tu frontend
+      - key: DATA_DIR
+        value: /data
+    # Para que los datos NO se pierdan al redesplegar (requiere plan de pago),
+    # quita "plan: free", usa "plan: starter" y descomenta:
+    # disk:
+    #   name: vet-data
+    #   mountPath: /data
+    #   sizeGB: 1
